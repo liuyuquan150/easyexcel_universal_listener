@@ -1,0 +1,27 @@
+server:
+  port: 9999
+
+spring:
+  datasource:
+    username: root
+    password: crush
+    url: >
+            jdbc:mysql://localhost:3306/easyexcel_universal_listener?
+            useSSL=true&
+            useUnicode=true&
+            characterEncoding=UTF-8&
+            useTimezone=true&
+            serverTimezone=GMT%2B8&
+            allowMultiQueries=true&
+            rewriteBatchedStatements=true
+    hikari:
+      auto-commit: true
+mybatis:
+  configuration:
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+    # MyBatis 核心配置文件中设置的执行器类型, 默认是 simple.
+  #    default-executor-type: simple
+  mapper-locations: classpath:indi/ly/crush/mapper/xml/I*Mapper.xml
+  # SqlSessionTemplate 使用的执行器类型
+  executor-type: batch
