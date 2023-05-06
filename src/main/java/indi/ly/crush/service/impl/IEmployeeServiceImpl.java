@@ -4,7 +4,6 @@ import indi.ly.crush.core.listener.UniversalListenerHelper;
 import indi.ly.crush.mapper.api.IEmployeeMapper;
 import indi.ly.crush.model.entity.Employee;
 import indi.ly.crush.service.api.IEmployeeService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,12 +22,6 @@ public class IEmployeeServiceImpl
     private static final String XLSX_FILE_EXTENSION_NAME = "xlsx";
     private static final String XLS_FILE_CONTEXT_TYPE = "application/vnd.ms-excel application/x-excel";
     private static final String XLSX_FILE_CONTEXT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
-    final IEmployeeMapper employeeMapper;
-
-    public IEmployeeServiceImpl(@Qualifier(value = "IEmployeeMapper") IEmployeeMapper employeeMapper) {
-        this.employeeMapper = employeeMapper;
-    }
 
     @Override
     public void batchSave(String fileContentType, String originalName, InputStream inputStream) {

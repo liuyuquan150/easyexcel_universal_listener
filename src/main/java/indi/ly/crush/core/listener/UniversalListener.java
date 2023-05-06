@@ -137,7 +137,6 @@ class UniversalListener<T, M>
             }
             // 根据因违背业务校验的错误数据的有无决定事物提交还是回滚
             if (this.errorRows.size() > 0) {
-
                 this.sqlSession.rollback(true);
             } else {
                 this.sqlSession.commit(true);
