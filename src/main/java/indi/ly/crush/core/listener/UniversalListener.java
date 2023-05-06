@@ -100,6 +100,7 @@ class UniversalListener<T, M>
             return (!Modifier.isStatic(modifiers) || !Modifier.isFinal(modifiers)) && field.getAnnotation(ExcelProperty.class) != null;
         });
 
+        // 可以用 SqlSessionManager 包装
         SqlSessionFactory sqlSessionFactory = SpringApplicationContextHolder.getBean(SqlSessionFactory.class);
         this.sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
         this.mapper = this.sqlSession.getMapper(mapperType);
@@ -135,9 +136,11 @@ class UniversalListener<T, M>
             if (this.successCount % this.flushValue != 0) {
                 this.sqlSession.flushStatements();
             }
+
             // 根据因违背业务校验的错误数据的有无决定事物提交还是回滚
             if (this.errorRows.size() > 0) {
                 this.sqlSession.rollback(true);
+                LOG.warn("The imported file has illegal data, so rollback.");
             } else {
                 this.sqlSession.commit(true);
             }

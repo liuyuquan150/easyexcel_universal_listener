@@ -18,10 +18,9 @@ spring:
       auto-commit: true
 mybatis:
   configuration:
-    cache-enabled: true
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
     # MyBatis 核心配置文件中设置的执行器类型, 默认是 simple.
-  #    default-executor-type: simple
+    default-executor-type: batch
   mapper-locations: classpath:indi/ly/crush/mapper/xml/I*Mapper.xml
   # SqlSessionTemplate 使用的执行器类型
   executor-type: batch

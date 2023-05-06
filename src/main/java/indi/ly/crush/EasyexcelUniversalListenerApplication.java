@@ -1,6 +1,5 @@
 package indi.ly.crush;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author 云上的云
  * @since 1.0
  */
-@MapperScan(value = "indi.ly.crush.mapper.api")
 @SpringBootApplication(scanBasePackages = "indi.ly.crush")
 public class EasyexcelUniversalListenerApplication {
     public static void main(String[] args) {
