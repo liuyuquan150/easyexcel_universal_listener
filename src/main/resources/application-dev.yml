@@ -15,7 +15,8 @@ spring:
             allowMultiQueries=true&
             rewriteBatchedStatements=true
     hikari:
-      auto-commit: true
+      # 要保证 UniversalListener 监听器中的回滚有效果. 这个值设置为 false 也不会影响事物自动提交, 这是为什么?
+      auto-commit: false
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
