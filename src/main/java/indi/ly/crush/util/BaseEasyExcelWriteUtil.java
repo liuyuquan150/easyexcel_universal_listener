@@ -39,6 +39,7 @@ import java.util.Objects;
 public abstract class BaseEasyExcelWriteUtil
 		extends BaseEasyExcelUtil {
 	private static final Log LOG = LogFactory.getLog(BaseEasyExcelWriteUtil.class);
+	static final String SHEET_STR = "Sheet";
 
 	//---------------------------------------------------------------------
 	// easyWrite: 简单写
@@ -48,13 +49,13 @@ public abstract class BaseEasyExcelWriteUtil
 	public static <T> void easyWrite03(
 			List<T> dataSource, String pathName, Class<?> headClass
 	) {
-		easyWrite(dataSource, pathName, defaultCreateSheetName(), headClass, ExcelTypeEnum.XLS, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
+		easyWrite(dataSource, pathName, SHEET_STR, headClass, ExcelTypeEnum.XLS, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
 	}
 
 	public static <T> void easyWrite07(
 			List<T> dataSource, String pathName, Class<?> headClass
 	) {
-		easyWrite(dataSource, pathName, defaultCreateSheetName(), headClass, ExcelTypeEnum.XLSX, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
+		easyWrite(dataSource, pathName, SHEET_STR, headClass, ExcelTypeEnum.XLSX, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
 	}
 
 	@Deprecated(since = "1.0")
@@ -62,14 +63,14 @@ public abstract class BaseEasyExcelWriteUtil
 			List<T> dataSource, String pathName, Class<?> headClass,
 			List<? extends Converter<?>> converters, List<? extends WriteHandler> writeHandlers
 	) {
-		easyWrite(dataSource, pathName, defaultCreateSheetName(), headClass, ExcelTypeEnum.XLS, converters, writeHandlers);
+		easyWrite(dataSource, pathName, SHEET_STR, headClass, ExcelTypeEnum.XLS, converters, writeHandlers);
 	}
 
 	public static <T> void easyWrite07(
 			List<T> dataSource, String pathName, Class<?> headClass,
 			List<? extends Converter<?>> converters, List<? extends WriteHandler> writeHandlers
 	) {
-		easyWrite(dataSource, pathName, defaultCreateSheetName(), headClass, ExcelTypeEnum.XLSX, converters, writeHandlers);
+		easyWrite(dataSource, pathName, SHEET_STR, headClass, ExcelTypeEnum.XLSX, converters, writeHandlers);
 	}
 
 	@Deprecated(since = "1.0")
@@ -144,13 +145,13 @@ public abstract class BaseEasyExcelWriteUtil
 	public static <T> void flexibleWrite03(
 			List<T> dataSource, String pathName, Class<?> headClass
 	) {
-		flexibleWrite(dataSource, pathName, headClass, defaultCreateSheetName(), ExcelTypeEnum.XLS, WRITE_MAX_ENTRIES_03_VERSION, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
+		flexibleWrite(dataSource, pathName, headClass, SHEET_STR, ExcelTypeEnum.XLS, WRITE_MAX_ENTRIES_03_VERSION, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
 	}
 
 	public static <T> void flexibleWrite07(
 			List<T> dataSource, String pathName, Class<?> headClass
 	) {
-		flexibleWrite(dataSource, pathName, headClass, defaultCreateSheetName(), ExcelTypeEnum.XLSX, WRITE_MAX_ENTRIES_07_VERSION, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
+		flexibleWrite(dataSource, pathName, headClass, SHEET_STR, ExcelTypeEnum.XLSX, WRITE_MAX_ENTRIES_07_VERSION, EMPTY_CONVERTERS, EMPTY_WRITE_HANDLERS);
 	}
 
 	@Deprecated(since = "1.0")
@@ -158,14 +159,14 @@ public abstract class BaseEasyExcelWriteUtil
 			List<T> dataSource, String pathName, Class<?> headClass,
 			List<? extends Converter<?>> converters, List<? extends WriteHandler> writeHandlers
 	) {
-		flexibleWrite(dataSource, pathName, headClass, defaultCreateSheetName(), ExcelTypeEnum.XLS, WRITE_MAX_ENTRIES_03_VERSION, converters, writeHandlers);
+		flexibleWrite(dataSource, pathName, headClass, SHEET_STR, ExcelTypeEnum.XLS, WRITE_MAX_ENTRIES_03_VERSION, converters, writeHandlers);
 	}
 
 	public static <T> void flexibleWrite07(
 			List<T> dataSource, String pathName, Class<?> headClass,
 			List<? extends Converter<?>> converters, List<? extends WriteHandler> writeHandlers
 	) {
-		flexibleWrite(dataSource, pathName, headClass, defaultCreateSheetName(), ExcelTypeEnum.XLSX, WRITE_MAX_ENTRIES_07_VERSION, converters, writeHandlers);
+		flexibleWrite(dataSource, pathName, headClass, SHEET_STR, ExcelTypeEnum.XLSX, WRITE_MAX_ENTRIES_07_VERSION, converters, writeHandlers);
 	}
 
 	@Deprecated(since = "1.0")
@@ -289,7 +290,7 @@ public abstract class BaseEasyExcelWriteUtil
 			}
 		}
 		
-		throw new IllegalArgumentException("%s and %s do not match, Or%sThis format is not supported.".formatted(pathName, fileType, pathName));
+		throw new IllegalArgumentException("%s and %s do not match, Or %s This format is not supported.".formatted(pathName, fileType, pathName));
 	}
 
 	/**
@@ -380,7 +381,7 @@ public abstract class BaseEasyExcelWriteUtil
 			if (reasonableWriteCount == 1) {
 				// 将数据写入到工作表的执行者
 				WriteSheet writeSheet = EasyExcel
-											.writerSheet(0,sheetName)
+											.writerSheet(0, sheetName)
 											.build();
 				excelWriter.write(dataSource, writeSheet);
 			} else {

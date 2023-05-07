@@ -9,9 +9,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.ReflectionUtils;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <h2>EasyExcel 基础工具</h2>
@@ -117,18 +118,5 @@ public abstract class BaseEasyExcelUtil {
 							.orElse(0);
 		LOG.debug("%s The number of rows in the column header of the corresponding worksheet is [%d]".formatted(modelClass.getName(), maxHeadRows));
 		return maxHeadRows;
-	}
-	
-	/**
-	 * <p>
-	 *     创建工作表的默认名称, 格式: "yyyy-MM-dd HH:mm:ss uuid4".
-	 * </p>
-	 *
-	 * @return 工作表的默认名称字符串.
-	 */
-	protected static String defaultCreateSheetName() {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String now = LocalDateTime.now().format(dateTimeFormatter);
-		return String.join("", now, UUID.randomUUID().toString().replace("-", ""));
 	}
 }
