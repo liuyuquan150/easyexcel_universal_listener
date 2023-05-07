@@ -103,7 +103,7 @@ public abstract class BaseEasyExcelWriteUtil
 
 	/**
 	 * <p>
-	 *     简单写入操作: 将数据 1 次写入到 Excel 文件中的 1 个工作表内并生成该 Excel 文件.
+	 *     简单写入操作: 采用内存模式, 将数据 1 次写入到 Excel 文件中的 1 个工作表内并生成该 Excel 文件.
 	 * </p>
 	 *
 	 * @param dataSource    写入 Excel 文件的数据源.
@@ -127,9 +127,10 @@ public abstract class BaseEasyExcelWriteUtil
 
 		ExcelWriterSheetBuilder builder = EasyExcel
 												.write(pathName, headClass)
+												// 开启内存处理模式（不推荐, 1W 数据以内可以考虑, 大了很容易 OOM）
 												.inMemory(Boolean.TRUE)
 												.excelType(fileType)
-												.sheet(0,sheetName);
+												.sheet(0, sheetName);
 		converters.forEach(builder :: registerConverter);
 		writeHandlers.forEach(builder :: registerWriteHandler);
 

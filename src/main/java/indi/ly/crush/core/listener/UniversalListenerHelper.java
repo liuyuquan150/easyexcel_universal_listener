@@ -22,6 +22,11 @@ import java.util.function.Supplier;
 
 /**
  * <h2>{@link UniversalListener} 助手</h2>
+ * <p>
+ *     屏蔽 {@link UniversalListener} 的原因在于
+ *     {@link UniversalListener#getErrorRows}、{@link UniversalListener#getSuccessCount}
+ *     这些额外提供的方法若是要具备值, 那么必须是在 {@link ExcelReader#read} 方法执行完毕之后才能具备值.
+ * </p>
  *
  * @author 云上的云
  * @since 1.0

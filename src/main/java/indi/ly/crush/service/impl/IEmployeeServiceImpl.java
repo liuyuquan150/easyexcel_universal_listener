@@ -29,12 +29,14 @@ public class IEmployeeServiceImpl
             throw new RuntimeException("This is not 1 'xls' or 'xlsx' file.");
         }
 
-        UniversalListenerHelper.executeListenerDoesNotGenerateReport(
+        UniversalListenerHelper.executeListenerAndGenerateReport(
                 inputStream,
                 Employee.class,
                 IEmployeeMapper.class,
                 IEmployeeMapper::insert,
-                300_000
+                // 100 万数据 ——— 30+s
+                30000,
+                StringUtils.getFilename(originalName)
         );
     }
 
