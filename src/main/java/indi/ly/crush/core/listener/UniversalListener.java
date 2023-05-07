@@ -11,6 +11,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionManager;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.transaction.SpringManagedTransaction;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
@@ -23,6 +27,14 @@ import java.util.function.BiConsumer;
  * <h2>通用监听器</h2>
  *
  * @author 云上的云
+ * @see SqlSessionFactory
+ * @see SqlSessionManager
+ * @see SqlSessionTemplate
+ * @see SpringManagedTransaction
+ * @see SpringManagedTransaction#commit()
+ * @see SpringManagedTransaction#rollback()
+ * @see PlatformTransactionManager
+ * @see TransactionStatus
  * @since 1.0
  */
 class UniversalListener<T, M>
@@ -192,5 +204,15 @@ class UniversalListener<T, M>
      */
     public Boolean hasErrorRows() {
         return !this.errorRows.isEmpty();
+    }
+    /**
+     * <p>
+     *     返回 {@link #successCount}.
+     * </p>
+     *
+     * @return {@link #successCount}.
+     */
+    public Integer getSuccessCount() {
+        return this.successCount;
     }
 }

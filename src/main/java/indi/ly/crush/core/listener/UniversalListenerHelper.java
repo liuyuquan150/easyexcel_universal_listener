@@ -3,6 +3,10 @@ package indi.ly.crush.core.listener;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
+import indi.ly.crush.core.handler.ErrorReportCellWriteHandler;
+import indi.ly.crush.core.handler.ErrorReportRowWriteHandler;
+import indi.ly.crush.core.handler.ErrorReportSheetWriteHandler;
 import indi.ly.crush.util.BaseEasyExcelReadUtil;
 import indi.ly.crush.util.BaseEasyExcelWriteUtil;
 import org.springframework.util.Assert;
@@ -81,13 +85,26 @@ public final class UniversalListenerHelper {
 
         if (universalListener.hasErrorRows()) {
             String reportFilePathName = reportFilePathNameSupplier.get();
-            if (StringUtils.hasText(reportFilePathName)) {
+            if (!StringUtils.hasText(reportFilePathName)) {
                 throw new IllegalArgumentException("'reportFilePathName' is not a valid value.");
             }
-            List<ErrorRow> errorRows = universalListener.getErrorRows();
 
+            List<ErrorRow> errorRows = universalListener.getErrorRows();
+            int failuresDataCount = errorRows.size();
+            int dataTotal = universalListener.getSuccessCount() + failuresDataCount;
             // 生成错误报告
-            BaseEasyExcelWriteUtil.flexibleWrite07(errorRows, reportFilePathName, ErrorRow.class);
+            BaseEasyExcelWriteUtil.flexibleWrite07(
+                    errorRows,
+                    reportFilePathName,
+                    ErrorRow.class,
+                    List.of(),
+                    List.of(
+                            new LongestMatchColumnWidthStyleStrategy(),
+                            new ErrorReportCellWriteHandler(),
+                            new ErrorReportRowWriteHandler(),
+                            new ErrorReportSheetWriteHandler(dataTotal, failuresDataCount)
+                    )
+            );
         }
     }
 
