@@ -16,6 +16,7 @@ spring:
             rewriteBatchedStatements=true
     hikari:
       # 要保证 UniversalListener 监听器中的回滚有效果. 这个值设置为 false 也不会影响事物自动提交, 这是为什么?
+      # https://stackoverflow.com/questions/64502965/hikaricp-makes-commit-despite-isautocommit-false
       auto-commit: false
 mybatis:
   configuration:

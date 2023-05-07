@@ -18,6 +18,9 @@ import java.util.List;
  */
 public class ErrorColumnConverter
         implements Converter<List<ErrorColumn>> {
+
+    static final String TEXT_LINE_FEED = "\n";
+
     @Override
     public Class<?> supportJavaTypeKey() {
         return List.class;
@@ -34,7 +37,7 @@ public class ErrorColumnConverter
         return value
                 .stream()
                 .map(ErrorColumn::message)
-                .reduce((s, s2) -> s + "\n" + s2)
+                .reduce((s, s2) -> "%s%s%s".formatted(s, TEXT_LINE_FEED, s2))
                 .map(stringValue -> new WriteCellData<String>(stringValue))
                 .orElseGet(WriteCellData::new);
     }
